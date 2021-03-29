@@ -18,20 +18,39 @@
             <h1 class="text-center text-light my-3">Weather Dashboard</h1>
         </div>
         <div class="row mt-4">
-            <div class="col-4">
+            <div class="col-3">
                 <h5>Search for a City:</h5>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="enter a city name...">
+                    <input type="text" class="form-control" id="input" placeholder="enter a city name...">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary bg-primary px-4" type="button">
+                        <button class="btn btn-outline-secondary bg-primary px-4" id="search-button" type="button">
                             <i class="bi bi-search text-light"></i>
                         </button>
                     </div>
                 </div>
+                <ul class="list-group"></ul>
             </div>
-            <div class="col-8" id="display-box">
-                <div class="row" id="main-weather"></div>
+            <div class="col-9" id="display-box">
+                <div class="row p-4" id="main-weather"></div>
                 <div class="row" id="5-day-forecast"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Incorrect data input</h5>
+                </div>
+                <div class="modal-body">
+                    Please enter correct city name
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +58,10 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 
