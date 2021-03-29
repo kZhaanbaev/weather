@@ -19,7 +19,20 @@ clearBtn.on('click', function (){
 
 searchBtn.on('click', function () {
     let cityName = inputField.val();
+    document.getElementById('input').value = '';
 
+    displayWeatherInfo(cityName)   
+})
+
+$('ul').on('click', 'li', function(event){
+    displayWeatherInfo($(this).text());
+})
+
+/**
+ * Function will take city name and display all weather information for that city
+ * @param {*} cityName 
+ */
+function displayWeatherInfo(cityName){
     let endPoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=6eff42fd74f00dfa17ce2ae0939485b8`;
 
     //clearing out the weather display section prior adding any elements
@@ -82,9 +95,7 @@ searchBtn.on('click', function () {
         .catch(function (error){
             console.log(error);
         })
-
-        
-})
+}
 
 /**
  * Function will take following details from API and display on the page
@@ -142,7 +153,7 @@ function displayUVindex(uv){
  * @param {*} humidity 
  */
 function displayCard(date, icon, temperature, humidity){
-    let card = $('<div class="card col-2 text-nowrap my-5 bg-primary text-light">');
+    let card = $('<div class="card col-xl-2 col-12 text-nowrap my-5 bg-primary text-light">');
 
     let body = $('<div class="card-body">');
 
@@ -181,6 +192,6 @@ function showCityNameFromStorage(){
  * @param {*} cityName 
  */
 function createCityListItem(cityName){
-    let li = $(`<li class="list-group-item">${cityName}</li>`);
+    let li = $(`<li class="list-group-item list-group-item-action">${cityName}</li>`);
     savedList.append(li);
 }

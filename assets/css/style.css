@@ -2,3 +2,17 @@ body {
     width: 1250px;
     margin: auto;
 }
+
+@media only screen and (max-width: 1200px){
+    body{
+        width: 100%;
+    }
+
+    .card-body {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+}
