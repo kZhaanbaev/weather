@@ -4,9 +4,18 @@ const forecast = $('#5-day-forecast');
 
 const inputField = $('#input');
 const searchBtn = $('#search-button');
+const clearBtn = $('#clearBtn');
 let cardDeck = $('<div class="row justify-content-around">');
 
 const F = String.fromCharCode(176);
+
+showCityNameFromStorage();
+
+//will delete history from local storage
+clearBtn.on('click', function (){
+    savedList.children().remove();
+    localStorage.clear();
+})
 
 searchBtn.on('click', function () {
     let cityName = inputField.val();
@@ -66,6 +75,9 @@ searchBtn.on('click', function () {
             .catch(function (error){
                 console.log(error);
             })
+
+            localStorage.setItem('city-' + cityName, cityName);
+            showCityNameFromStorage();
         })
         .catch(function (error){
             console.log(error);
@@ -147,4 +159,28 @@ function displayCard(date, icon, temperature, humidity){
     card.append(body);
     
     cardDeck.append(card);    
+}
+
+/**
+ * Function will load all list items with city names from localStorage
+ */
+function showCityNameFromStorage(){
+    savedList.children().remove();
+    for(i = 0; i < localStorage.length; i++){
+        let key = localStorage.key(i);
+        let value = localStorage[key];
+
+        if(key.startsWith('city-')){
+            createCityListItem(value.substring(value.indexOf('-')+1));
+        }
+    }
+}
+
+/**
+ * Function creates a list item and adds to ul
+ * @param {*} cityName 
+ */
+function createCityListItem(cityName){
+    let li = $(`<li class="list-group-item">${cityName}</li>`);
+    savedList.append(li);
 }
