@@ -4,6 +4,9 @@ const forecast = $('#5-day-forecast');
 
 const inputField = $('#input');
 const searchBtn = $('#search-button');
+let cardDeck = $('<div class="row justify-content-around">');
+
+const F = String.fromCharCode(176);
 
 searchBtn.on('click', function () {
     let cityName = inputField.val();
@@ -37,12 +40,22 @@ searchBtn.on('click', function () {
                 let endPoint5Days = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=6eff42fd74f00dfa17ce2ae0939485b8`;
 
                 fetch(endPoint5Days)
+                .then((response) => response.json())
                 .then((data) =>{
                     if (!data) {
                         throw Error(data);
                     }
 
-                    console.log(data);
+                    cardDeck.children().remove();
+                    cardDeck.append($('<h2 class="mt-4">5-Day Forecast</h2>'));
+
+                    //taking information for 12 noon only for each day
+                    data.list.forEach(function(each){
+                        if(each.dt_txt.includes('12:00:00')){
+                            displayCard(each.dt_txt.substring(0, 10), each.weather[0].icon.substring(0,2), each.main.temp, each.main.humidity)
+                        }
+                    });
+                    forecast.append(cardDeck);
 
                 })
                 .catch(function (error){
@@ -76,7 +89,6 @@ function createWeatherView(city, date, icon, temperature, humidity, speed){
     mainWeather.addClass('border border-dark');
     mainWeather.append(h1);
 
-    let F = String.fromCharCode(176);
     let temp = $(`<p>Temperature: ${temperature} ${F}F</p>`);
     let hum = $(`<p>Himidity: ${humidity}%</p>`);
     let wind = $(`<p>Wind Speed: ${speed} MPH</p>`);
@@ -108,4 +120,31 @@ function displayUVindex(uv){
 
     uvText.append(uvIndex);
     mainWeather.append(uvText);
+}
+
+/**
+ * Function will take parameters and display as a card, used for 5-day forecast
+ * @param {*} date 
+ * @param {*} icon 
+ * @param {*} temperature 
+ * @param {*} humidity 
+ */
+function displayCard(date, icon, temperature, humidity){
+    let card = $('<div class="card col-2 text-nowrap my-5 bg-primary text-light">');
+
+    let body = $('<div class="card-body">');
+
+    let title = $(`<h5 class="card-title">${date}</h5>`);
+    let icon_ = $(`<img src="http://openweathermap.org/img/wn/${icon}d@2x.png">`);
+    let temp = $(`<p class="card-text">Temp: ${temperature} ${F}F</p>`);
+    let hum = $(`<p class="card-text">Humidity: ${humidity}%</p>`);
+
+    body.append(title);
+    body.append(icon_);
+    body.append(temp);
+    body.append(hum);
+
+    card.append(body);
+    
+    cardDeck.append(card);    
 }
