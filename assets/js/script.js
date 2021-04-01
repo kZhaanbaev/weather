@@ -158,7 +158,7 @@ function displayCard(date, icon, temperature, humidity){
     let body = $('<div class="card-body">');
 
     let title = $(`<h5 class="card-title">${date}</h5>`);
-    let icon_ = $(`<img src="http://openweathermap.org/img/wn/${icon}d@2x.png">`);
+    let icon_ = $(`<img src="https://openweathermap.org/img/wn/${icon}d@2x.png">`);
     let temp = $(`<p class="card-text">Temp: ${temperature} ${F}F</p>`);
     let hum = $(`<p class="card-text">Humidity: ${humidity}%</p>`);
 
