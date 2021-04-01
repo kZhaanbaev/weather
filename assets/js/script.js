@@ -107,7 +107,7 @@ function displayWeatherInfo(cityName){
  * @param speed is speed of wind
  */
 function createWeatherView(city, date, icon, temperature, humidity, speed){
-    let h1 = $(`<h2>${city} (${date}) <img src="http://openweathermap.org/img/wn/${icon}d@2x.png"></h2>`);
+    let h1 = $(`<h2>${city} (${date}) <img src="https://openweathermap.org/img/wn/${icon}d@2x.png"></h2>`);
 
     mainWeather.addClass('border border-dark');
     mainWeather.append(h1);
